@@ -10,9 +10,9 @@ License:        MIT
 URL:            http://github.com/ActiveState/appdirs
 Source0:        https://pypi.python.org/packages/source/a/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
- 
-BuildRequires:  python2-devel
 
+BuildRequires:  python2-devel
+BuildRequires:  python-setuptools >= 0.8
 
 %description
 Appdirs is a small Python module for determining appropriate platform-specific
@@ -24,14 +24,14 @@ dirs, e.g. a "user data dir".
 %build
 %{__python2} setup.py build
 
-
 %install
 %{__python2} setup.py install --skip-build --root %{buildroot}
 
+%check
+%{__python2} setup.py test
 
 %files
 %doc README.rst LICENSE.txt
-
 %{python2_sitelib}/%{pypi_name}.py*
 %{python2_sitelib}/%{pypi_name}-%{upstream_version}-py?.?.egg-info
 
