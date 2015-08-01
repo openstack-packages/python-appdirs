@@ -3,7 +3,7 @@
 
 Name:          python-%{modname}
 Version:       1.4.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Python module for determining platform-specific directories
 
 License:       MIT
@@ -38,20 +38,20 @@ cp -a . %{py3dir}
 %endif
 
 %build
-%{__python2} setup.py build
+%py2_build
 
 %if %{with python3}
 pushd %{py3dir}
-  %{__python3} setup.py build
+  %py3_build
 popd
 %endif
 
 %install
-%{__python2} setup.py install -O1 --skip-build --root %{buildroot}
+%py2_install
 
 %if %{with python3}
 pushd %{py3dir}
-  %{__python3} setup.py install -O1 --skip-build --root %{buildroot}
+  %py3_install
 popd
 %endif
 
@@ -85,6 +85,9 @@ popd
 %endif
 
 %changelog
+* Sun Aug 02 2015 Igor Gnatenko <i.gnatenko.brain@gmail.com> - 1.4.0-3
+- Use modern python rpm macros
+
 * Mon Jul 27 2015 Igor Gnatenko <i.gnatenko.brain@gmail.com> - 1.4.0-2
 - Include CHANGES.rst in doc
 - use python2-devel in BR instead of python-devel
